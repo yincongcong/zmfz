@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dao.ArticleDao">
+    <resultMap id="BaseResultMap" type="com.baizhi.entity.Article">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="AUTHOR" jdbcType="VARCHAR" property="author"/>
+        <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
+        <result column="GURU_ID" jdbcType="VARCHAR" property="guru_id"/>
+        <result column="CREATE_DATE" jdbcType="DATE" property="create_date"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="OTHER" jdbcType="VARCHAR" property="other"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, TITLE, AUTHOR, CONTENT, GURU_ID, CREATE_DATE, STATUS, OTHER
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from article
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from article
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.baizhi.entity.Article">
+    insert into article (ID, TITLE, AUTHOR, 
+      CONTENT, GURU_ID , CREATE_DATE,
+      STATUS, OTHER)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{guru_id,jdbcType=VARCHAR}, #{create_date,jdbcType=DATE},
+      #{status,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.baizhi.entity.Article">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="title != null">
+                TITLE,
+            </if>
+            <if test="author != null">
+                AUTHOR,
+            </if>
+            <if test="content != null">
+                CONTENT,
+            </if>
+            <if test="guruId != null">
+                GURU_ID,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="other != null">
+                OTHER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null">
+                #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="guruId != null">
+                #{guru_id,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{create_date,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="other != null">
+                #{other,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.baizhi.entity.Article">
+        update article
+        <set>
+            <if test="title != null">
+                TITLE = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null">
+                AUTHOR = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                CONTENT = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="guru_id != null">
+                GURU_ID = #{guru_id,jdbcType=VARCHAR},
+            </if>
+            <if test="create_date != null">
+                CREATE_DATE = #{create_date,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="other != null">
+                OTHER = #{other,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.Article">
+    update article
+    set TITLE = #{title,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      GURU_ID = #{guru_id,jdbcType=VARCHAR},
+      CREATE_DATE = #{create_date,jdbcType=DATE},
+      STATUS = #{status,jdbcType=VARCHAR},
+      OTHER = #{other,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+    <!--批量删除-->
+    <delete id="plDelete">
+        delete from article where id in
+        <foreach close=")" collection="array" item="article" open="(" separator=",">
+            #{article}
+        </foreach>
+    </delete>
+    <!--分页查询-->
+    <select id="queryPage" resultType="article">
+        select
+        <include refid="Base_Column_List"/>
+        from article limit #{start},#{rows}
+    </select>
+    <!--查询总条数-->
+    <select id="pageCount" resultType="Integer">
+    select count(id) from article
+  </select>
+    <!--查所有-->
+    <select id="queryAllArticle" resultType="article">
+        select
+        <include refid="Base_Column_List"/>
+        from article
+    </select>
+</mapper>

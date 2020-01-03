@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.baizhi.entity.User">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="PHONE_NUMBER" property="phone_number" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="DHARMA" property="dharma" jdbcType="VARCHAR"/>
+        <result column="HEAD_IMG" property="head_img" jdbcType="VARCHAR"/>
+        <result column="SEX" property="sex" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="SIGN" property="sign" jdbcType="VARCHAR"/>
+        <result column="GURU_ID" property="guru_id" jdbcType="VARCHAR"/>
+        <result column="LAST_DATE" property="last_date" jdbcType="DATE"/>
+        <result column="CREATE_DATE" property="create_date" jdbcType="DATE"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR"/>
+        <result column="SALT" property="salt" jdbcType="VARCHAR"/>
+        <result column="OTHER" property="other" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, PHONE_NUMBER, PASSWORD, NAME, DHARMA, HEAD_IMG, SEX, ADDRESS, SIGN, GURU_ID, 
+    LAST_DATE, CREATE_DATE, STATUS, SALT, OTHER
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.baizhi.entity.User">
+    insert into t_user (ID, PHONE_NUMBER, PASSWORD, 
+      NAME, DHARMA, HEAD_IMG, 
+      SEX, ADDRESS, SIGN, 
+      GURU_ID, LAST_DATE, CREATE_DATE, 
+      STATUS, SALT, OTHER
+      )
+    values (#{id,jdbcType=VARCHAR}, #{phone_number,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{dharma,jdbcType=VARCHAR}, #{head_img,jdbcType=VARCHAR},
+      #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{guru_id,jdbcType=VARCHAR}, #{last_date,jdbcType=DATE}, #{create_date,jdbcType=DATE},
+      #{status,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.baizhi.entity.User">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="phoneNumber != null">
+                PHONE_NUMBER,
+            </if>
+            <if test="password != null">
+                PASSWORD,
+            </if>
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="dharma != null">
+                DHARMA,
+            </if>
+            <if test="headImg != null">
+                HEAD_IMG,
+            </if>
+            <if test="sex != null">
+                SEX,
+            </if>
+            <if test="address != null">
+                ADDRESS,
+            </if>
+            <if test="sign != null">
+                SIGN,
+            </if>
+            <if test="guruId != null">
+                GURU_ID,
+            </if>
+            <if test="lastDate != null">
+                LAST_DATE,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="salt != null">
+                SALT,
+            </if>
+            <if test="other != null">
+                OTHER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phone_number,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="dharma != null">
+                #{dharma,jdbcType=VARCHAR},
+            </if>
+            <if test="headImg != null">
+                #{head_img,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="guruId != null">
+                #{guru_id,jdbcType=VARCHAR},
+            </if>
+            <if test="lastDate != null">
+                #{last_date,jdbcType=DATE},
+            </if>
+            <if test="createDate != null">
+                #{create_date,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="other != null">
+                #{other,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.baizhi.entity.User">
+        update t_user
+        <set>
+            <if test="phoneNumber != null">
+                PHONE_NUMBER = #{phone_number,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="dharma != null">
+                DHARMA = #{dharma,jdbcType=VARCHAR},
+            </if>
+            <if test="headImg != null">
+                HEAD_IMG = #{head_img,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                SIGN = #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="guruId != null">
+                GURU_ID = #{guru_id,jdbcType=VARCHAR},
+            </if>
+            <if test="lastDate != null">
+                LAST_DATE = #{last_date,jdbcType=DATE},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{create_date,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                SALT = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="other != null">
+                OTHER = #{other,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.baizhi.entity.User">
+    update t_user
+    set PHONE_NUMBER = #{phone_number,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      DHARMA = #{dharma,jdbcType=VARCHAR},
+      HEAD_IMG = #{head_img,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      SIGN = #{sign,jdbcType=VARCHAR},
+      GURU_ID = #{guru_id,jdbcType=VARCHAR},
+      LAST_DATE = #{last_date,jdbcType=DATE},
+      CREATE_DATE = #{create_date,jdbcType=DATE},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SALT = #{salt,jdbcType=VARCHAR},
+      OTHER = #{other,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+    <!--查询最近7天的用户注册量-->
+    <select id="queryDay" resultType="com.baizhi.entity.DayDto">
+    select create_date as date, count(id) as counts from t_user where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(create_date) GROUP BY DAY(create_date);
+  </select>
+    <!--查询1-12月的用户注册量-->
+    <select id="queryMonth" resultType="com.baizhi.entity.MonthDto">
+    select MONTH(create_date) as month,count(id) as count from t_user group by MONTH(create_date)
+  </select>
+    <select id="queryAddress" resultType="com.baizhi.entity.AddressDto">
+    select count(id) as counts,ADDRESS address FROM t_user group by address
+  </select>
+</mapper>
