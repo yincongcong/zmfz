@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.ChapterDao;
 import com.baizhi.entity.Chapter;
 import com.baizhi.service.ChapterService;
@@ -21,6 +23,7 @@ public class ChapterServiceImpl implements ChapterService {
 
     //分页
     @Override
+    @AddCache
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> queryByPager(Integer rows, Integer page, String album_id) {
         /*
@@ -50,6 +53,7 @@ public class ChapterServiceImpl implements ChapterService {
 
     //修改
     @Override
+    @ClearCache
     public Map<String, String> updateChapter(Chapter chapter) {
         //创建一个map集合
         Map<String, String> map = new HashMap<>();
@@ -72,12 +76,14 @@ public class ChapterServiceImpl implements ChapterService {
 
     //删除
     @Override
+    @ClearCache
     public void plDelete(String[] id) {
         chapterDao.plDeleteChapter(id);
     }
 
     //添加数据
     @Override
+    @ClearCache
     public Map<String, String> insertChapter(Chapter chapter) {
         //创建一个map集合
         Map<String, String> map = new HashMap<>();

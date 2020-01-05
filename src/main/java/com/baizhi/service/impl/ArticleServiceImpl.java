@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.ArticleDao;
 import com.baizhi.entity.Article;
 import com.baizhi.service.ArticleService;
@@ -20,6 +22,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleDao articleDao;
 
     @Override
+    @AddCache
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> queryPageArticle(Integer page, Integer rows) {
         //计算开始条数
@@ -44,6 +47,7 @@ public class ArticleServiceImpl implements ArticleService {
     //添加数据
     @Override
     @Transactional
+    @ClearCache
     public void insertArticle(Article article) {
         //调用添加的方法
         article.setId(UUID.randomUUID().toString());
@@ -58,6 +62,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     //修改数据
     @Override
+    @ClearCache
     public void updateArticle(Article article) {
         //调用方法
 
@@ -73,6 +78,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     //批量删除
     @Override
+    @ClearCache
     public void plDelete(String[] id) {
         articleDao.plDelete(id);
     }
@@ -80,6 +86,7 @@ public class ArticleServiceImpl implements ArticleService {
     //查所有
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
+    @AddCache
     public List<Article> queryAllArticle() {
         List<Article> articles = articleDao.queryAllArticle();
         return articles;

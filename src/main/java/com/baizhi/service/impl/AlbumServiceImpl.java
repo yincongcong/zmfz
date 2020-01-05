@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.AlbumDao;
 import com.baizhi.entity.Album;
 import com.baizhi.service.AlbumService;
@@ -19,6 +21,7 @@ public class AlbumServiceImpl implements AlbumService {
     //分页查询
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
+    @AddCache
     public Map<String, Object> queryByPager(Integer rows, Integer page) {
         /*
          * page  当前页
@@ -47,6 +50,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     //添加数据
     @Override
+    @ClearCache
     public Map<String, String> insertAlbum(Album album) {
         //创建一个map集合
         HashMap<String, String> map = new HashMap<>();
@@ -72,6 +76,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     //修改数据
     @Override
+    @ClearCache
     public Map<String, String> updateAlbum(Album album) {
         //创建一个map集合
         HashMap<String, String> map = new HashMap<>();
@@ -95,6 +100,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     //批量删除
     @Override
+    @ClearCache
     public void plDeleteAlbum(String[] id) {
         //调用方法
         albumDao.plDelete(id);

@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.BannerDao;
 import com.baizhi.entity.Banner;
 import com.baizhi.service.BannerService;
@@ -26,6 +28,7 @@ public class BannerServiceImpl implements BannerService {
 
     //添加数据
     @Override
+    @ClearCache
     public Map<String, String> insertBanner(Banner banner) {
         //创建一个map集合
         HashMap<String, String> map = new HashMap<>();
@@ -53,6 +56,7 @@ public class BannerServiceImpl implements BannerService {
 
     //批量删除
     @Override
+    @ClearCache
     public String plDelete(String[] ids) {
         bannerDao.plDelete(ids);
         return "删除成功";
@@ -60,6 +64,7 @@ public class BannerServiceImpl implements BannerService {
 
     //修改数据
     @Override
+    @ClearCache
     public Map<String, String> updateBanner(Banner banner) {
         //创建一个map集合
         HashMap<String, String> map = new HashMap<>();
@@ -88,6 +93,7 @@ public class BannerServiceImpl implements BannerService {
 
     //分页查询
     @Override
+    @AddCache
     public Map<String, Object> queryByPager(Integer rows, Integer page) {
         /*
          * 返回参数
